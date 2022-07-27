@@ -133,11 +133,14 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
         // line 12
         echo "    <div class=\"d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm\">
         <h5 class=\"my-0 mr-md-auto font-weight-normal\">Awesome Videos</h5>
-        <a class=\"nav-link active\" href=\"..\"> Go to public site</a>
+        <a class=\"nav-link active\" href=\"";
+        // line 14
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_main_page");
+        echo "\"> Go to public site</a>
         <nav class=\"my-2 my-md-0 mr-md-3\">
             <a class=\"p-2 text-dark\">Logged as John Smith</a>
         </nav>
-        <a class=\"btn btn-outline-primary\" href=\"#\">Logout</a>
+        <a class=\"btn btn-outline-primary\" href=\"\">Logout</a>
     </div>
 
     <div class=\"row\">
@@ -145,31 +148,46 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
             <div class=\"sidebar-sticky\">
                 <ul class=\"nav flex-column\">
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"my_profile.php\">
+                        <a class=\"nav-link\" href=\"";
+        // line 26
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_main_page");
+        echo "\">
                             <span data-feather=\"file\"></span>
                             My profile
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"categories.php\">
+                        <a class=\"nav-link\" href=\"";
+        // line 32
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("categories");
+        echo "\">
                             <span data-feather=\"file\"></span>
                             Categories
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"videos.php\">
+                        <a class=\"nav-link\" href=\"";
+        // line 38
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("videos");
+        echo "\">
                             <span data-feather=\"shopping-cart\"></span>
                             Videos
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"upload_video.php\">
+                        <a class=\"nav-link\" href=\"";
+        // line 44
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("upload_video");
+        echo "\">
                             <span data-feather=\"shopping-cart\"></span>
                             Upload a video
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"users.php\">
+                        <a class=\"nav-link\" href=\"";
+        // line 50
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("users");
+        echo "\">
                             <span data-feather=\"users\"></span>
                             Users
                         </a>
@@ -181,7 +199,10 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
 
         <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
             <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                <h1 class=\"h2\"><a href=\"my_profile.php\">Dashboard</a></h1>
+                <h1 class=\"h2\"><a href=\"";
+        // line 62
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_main_page");
+        echo "\">Dashboard</a></h1>
             </div>
 
             ";
@@ -275,7 +296,7 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
 
     public function getDebugInfo()
     {
-        return array (  250 => 72,  240 => 71,  222 => 70,  204 => 65,  191 => 66,  189 => 65,  134 => 12,  124 => 11,  106 => 9,  87 => 7,  74 => 4,  64 => 3,  41 => 1,);
+        return array (  271 => 72,  261 => 71,  243 => 70,  225 => 65,  212 => 66,  210 => 65,  204 => 62,  189 => 50,  180 => 44,  171 => 38,  162 => 32,  153 => 26,  138 => 14,  134 => 12,  124 => 11,  106 => 9,  87 => 7,  74 => 4,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext()
@@ -293,11 +314,11 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
 {% block main %}
     <div class=\"d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm\">
         <h5 class=\"my-0 mr-md-auto font-weight-normal\">Awesome Videos</h5>
-        <a class=\"nav-link active\" href=\"..\"> Go to public site</a>
+        <a class=\"nav-link active\" href=\"{{ path('admin_main_page') }}\"> Go to public site</a>
         <nav class=\"my-2 my-md-0 mr-md-3\">
             <a class=\"p-2 text-dark\">Logged as John Smith</a>
         </nav>
-        <a class=\"btn btn-outline-primary\" href=\"#\">Logout</a>
+        <a class=\"btn btn-outline-primary\" href=\"\">Logout</a>
     </div>
 
     <div class=\"row\">
@@ -305,31 +326,31 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
             <div class=\"sidebar-sticky\">
                 <ul class=\"nav flex-column\">
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"my_profile.php\">
+                        <a class=\"nav-link\" href=\"{{ path('admin_main_page') }}\">
                             <span data-feather=\"file\"></span>
                             My profile
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"categories.php\">
+                        <a class=\"nav-link\" href=\"{{ path('categories') }}\">
                             <span data-feather=\"file\"></span>
                             Categories
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"videos.php\">
+                        <a class=\"nav-link\" href=\"{{ path('videos') }}\">
                             <span data-feather=\"shopping-cart\"></span>
                             Videos
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"upload_video.php\">
+                        <a class=\"nav-link\" href=\"{{ path('upload_video') }}\">
                             <span data-feather=\"shopping-cart\"></span>
                             Upload a video
                         </a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"users.php\">
+                        <a class=\"nav-link\" href=\"{{ path('users') }}\">
                             <span data-feather=\"users\"></span>
                             Users
                         </a>
@@ -341,7 +362,7 @@ class __TwigTemplate_1c49ad6603a2149fb57e0f732ad9031fddc1bb7d1c1ce9367d4f262b0e9
 
         <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
             <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                <h1 class=\"h2\"><a href=\"my_profile.php\">Dashboard</a></h1>
+                <h1 class=\"h2\"><a href=\"{{ path('admin_main_page') }}\">Dashboard</a></h1>
             </div>
 
             {% block mainadmin %}{% endblock %}

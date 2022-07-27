@@ -1,15 +1,20 @@
-<?php include('includes/_header.php'); ?>
+{% extends 'admin/base.html.twig' %}
+{% block mainadmin %}
 
-<style>
-    .fa-ul>li {
-    margin-top: 15px;
-}
-</style>
+{% block customsylesheets %}
+    {{ parent() }}
+    <style>
+        .fa-ul>li {
+            margin-top: 15px;
+        }
+    </style>
+{% endblock %}
+
 
 <h2>Categories list</h2>
 
 <ul class="fa-ul text-left">
-    <li><i class="fa-li fa fa-arrow-right"></i>Funny <a href="edit_category.php">edit</a> <a onclick="return confirm('Are you sure?');"
+    <li><i class="fa-li fa fa-arrow-right"></i>Funny <a href="{{ path('edit_category') }}">edit</a> <a onclick="return confirm('Are you sure?');"
                                                                                              href="#">delete</a></li>
     <ul class="fa-ul text-left">
         <li><i class="fa-li fa fa-arrow-right"></i>For kids <a href="edit_category.php">edit</a> <a onclick="return confirm('Are you sure?');"
@@ -65,6 +70,5 @@
         <button class="btn btn-primary mt-3" type="submit">Add</button>
     </div>
 </form>
+{% endblock %}
 
-
-<?php include('includes/_footer.php'); ?>
