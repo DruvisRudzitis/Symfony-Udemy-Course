@@ -2,12 +2,12 @@
 
 namespace App\Tests\Utils;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class CategoryTest extends TestCase
+class CategoryTest extends KernelTestCase
 {
-    public function testSomething(): void
+    public function setUp(): void
     {
-        $this->assertTrue(true);
+
     }
 }

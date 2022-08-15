@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
+use App\Utils\CategoryTreeAdminList;
+use App\Utils\CategoryTreeAdminOptionList;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,6 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminController extends AbstractController
 {
+
+    private EntityManagerInterface $entityManager;
+
+    /**
+     * @param CategoryRepository $categoryRepository
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+
     /**
      * @Route("/", name="admin_main_page")
      */
@@ -20,19 +39,64 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/categories", name="categories")
+     * @Route("/su/categories", name="categories", methods={"GET", "POST"})
      */
-    public function categories(): Response
+    public function categories(CategoryTreeAdminList $categories, Request $request): Response
     {
-        return $this->render('admin/categories.html.twig');
+        $categories->getCategoryList($categories->buildTree());
+
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class);
+        $isInvalid = null;
+
+        if($this->saveCategory($form, $request, $category))
+        {
+            return $this->redirectToRoute('categories');
+        }
+        elseif ($request->isMethod('post'))
+        {
+            $isInvalid = 'is-invalid';
+        }
+
+        return $this->render('admin/categories.html.twig',[
+            'categories'=>$categories->categorylist,
+            'form'=>$form->createView(),
+            'isInvalid'=>$isInvalid,
+        ]);
     }
 
     /**
-     * @Route("/edit-category", name="edit_category")
+     * @Route("/su/edit-category/{id}", name="edit_category", methods={"GET", "POST"})
      */
-    public function editCategory(): Response
+    public function editCategory(Category $category, Request $request): Response
     {
-        return $this->render('admin/edit_category.html.twig');
+        $form = $this->createForm(CategoryType::class, $category);
+        $isInvalid = null;
+
+        if($this->saveCategory($form, $request, $category))
+        {
+            return $this->redirectToRoute('categories');
+        }
+        elseif ($request->isMethod('post'))
+        {
+            $isInvalid = 'is-invalid';
+        }
+
+        return $this->render('admin/edit_category.html.twig',[
+            'category' => $category,
+            'form'=>$form->createView(),
+            'isInvalid'=>$isInvalid,
+        ]);
+    }
+
+    /**
+     * @Route("/su/delete-category/{id}", name="delete_category")
+     */
+    public function deleteCategory(Category $category): Response
+    {
+        $this->entityManager->remove($category);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('categories');
     }
 
     /**
@@ -44,7 +108,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/upload-video", name="upload_video")
+     * @Route("/su/upload-video", name="upload_video")
      */
     public function uploadVideo(): Response
     {
@@ -52,10 +116,40 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/users", name="users")
+     * @Route("/su/users", name="users")
      */
     public function users(): Response
     {
         return $this->render('admin/users.html.twig');
+    }
+
+    public function getAllCategories(CategoryTreeAdminOptionList $categories, $editedCategory = null)
+    {
+//        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $categories->getCategoryList($categories->buildTree());
+        return $this->render('admin/_all_categories.html.twig', [
+            'categories' => $categories,
+            'editedCategory' => $editedCategory
+        ]);
+    }
+
+    private function saveCategory($form, $request, $category): bool
+    {
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $category->setName($request->request->get('category')['name']);
+
+            $repository = $this->entityManager->getRepository(Category::class);
+            $parent = $repository->find($request->request->get('Category')['parent']);
+            $category->setParent($parent);
+
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+
+            return true;
+        }
+        return false;
     }
 }

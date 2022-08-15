@@ -8,10 +8,16 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
     [
         'Symfony\\Component\\Routing\\Annotation\\Route' => [
             'path' => [
-                '/edit-category',
+                '/edit-category/{id}',
             ],
             'name' => [
                 'edit_category',
+            ],
+            'methods' => [
+                [
+                    'GET',
+                    'POST',
+                ],
             ],
         ],
     ],
